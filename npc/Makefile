@@ -1,13 +1,35 @@
-TOP_MODULE := top
-SIM_CPP := sim_main.cpp
+BUILD_DIR = ./build
 
-all:
-	@echo "Write this Makefile by your self."
+test:
+	mill -i test
+
+verilog:
+	$(call git_commit, "generate verilog")
+	mkdir -p $(BUILD_DIR)
+	mill -i runMain Elaborate --target-dir $(BUILD_DIR)
+
+help:
+	mill -i runMain Elaborate --help
+
+reformat:
+	mill -i __.reformat
+
+checkformat:
+	mill -i __.checkFormat
+
+bsp:
+	mill -i mill.bsp.BSP/install
+
+idea:
+	mill -i mill.idea.GenIdea/idea
+
+clean:
+	-rm -rf $(BUILD_DIR)
+
+.PHONY: test verilog help reformat checkformat clean
 
 sim:
 	$(call git_commit, "sim RTL") # DO NOT REMOVE THIS LINE!!!
-	verilator --cc --trace-fst --exe --build -j 0 -Wall csrc/$(SIM_CPP) vsrc/$(TOP_MODULE).v
-	./obj_dir/V$(TOP_MODULE)
-	gtkwave $(TOP_MODULE).fst
- 
-include ../Makefile
+	@echo "Write this Makefile by yourself."
+
+-include ../Makefile
