@@ -1,0 +1,1 @@
+用c语言写的miniriscv,包含add,addi,jalr,lui,lw,lbu,sb,sw指令。分为三部分，1:这8条指令的解析 2：将.bin文件加载到rom和ram中 3：打印一生一芯图像
