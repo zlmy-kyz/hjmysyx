@@ -1,4 +1,30 @@
+#include <nvboard.h>
 #include <Vencode83.h>
+
+static TOP_NAME dut;
+
+void nvboard_bind_all_pins(TOP_NAME* top);
+
+int main() {
+    nvboard_bind_all_pins(&dut);
+    nvboard_init();
+
+    while(1) {
+        nvboard_update();
+        dut.eval();
+    }
+    return 0;
+}
+
+
+
+
+
+
+
+
+
+/*#include <Vencode83.h>
 #include <verilated.h>  
 #include <verilated_fst_c.h> 
 
@@ -63,4 +89,4 @@ int main() {
                     top->in = 0b10001000;  step_and_dump_wave();
 
     sim_exit();
-}
+}*/

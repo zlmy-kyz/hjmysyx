@@ -1,11 +1,12 @@
 module encode83 (
     input [7:0] in,
     input en,
-    output reg [2:0] out
+    output reg [6:0] out_seg
 );
     wire [1:0] h_out;
     wire [1:0] l_out;
     wire high_valid;
+    reg [2:0] out;
     encode42 high_encode(
         .in(in[7:4]),
         .en(en),
@@ -28,5 +29,10 @@ module encode83 (
         end
         else out = 0;
     end
+
+    bcd7seg seg1(
+        .in({1'b0, out}),
+        .out(out_seg)
+    );
     
 endmodule
