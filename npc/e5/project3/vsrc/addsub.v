@@ -1,8 +1,8 @@
 module addsub (
-    input [3:0] a,
-    input [3:0] b,
+    input signed [3:0] a,
+    input signed [3:0] b,
     input cin, // 0 for add, 1 for sub
-    output [3:0] result,
+    output signed [3:0] result,
     output carry,// cin=0,1为加法进位或cin=1,0为减法借位
     output overflow,//是否溢出
     output zero//结果是否为0

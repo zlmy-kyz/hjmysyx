@@ -1,4 +1,4 @@
-TOPNAME = addsub
+TOPNAME = alu
 CPP_NAME := main.cpp
 NXDC_FILES = constr/$(TOPNAME).nxdc
 INC_PATH ?=
