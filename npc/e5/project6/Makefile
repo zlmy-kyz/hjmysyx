@@ -1,4 +1,4 @@
-TOPNAME = shift_register
+TOPNAME = lfsr_8bit
 CPP_NAME := main.cpp
 NXDC_FILES = constr/$(TOPNAME).nxdc
 INC_PATH ?=
