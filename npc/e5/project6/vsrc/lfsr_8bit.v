@@ -14,7 +14,7 @@ always @(posedge clk or posedge rst) begin
     if(rst)
         reg_out <= 8'b00000001; // 禁止全0初始态
     else
-        if(en)
+        if(en)  
             reg_out <= {xor_flag, reg_out[7:1]}; // 右移，最高位补异或标志
 end
 bcd7seg u_seg0 (.in(reg_out[3:0]), .out(seg0));
