@@ -62,7 +62,19 @@ static int cmd_si(char *args) {
   cpu_exec(n);
 
   return 0;
-  
+}
+
+static int cmd_info(char *args){
+  if(args == NULL){
+    printf("please info r or w\n");
+  }
+  else if(strcmp(args,"r") == 0){
+    isa_reg_display();
+  }
+  else {
+    printf("please info r or w\n");
+  }
+  return 0;
 }
 
 static int cmd_help(char *args);
@@ -75,7 +87,8 @@ static struct {
   { "help", "Display information about all supported commands", cmd_help },
   { "c", "Continue the execution of the program", cmd_c },
   { "q", "Exit NEMU", cmd_q },
-  { "si", "let program run N steps then stop,if no N ,it will be 1", cmd_si}
+  { "si", "let program run N steps then stop,if no N ,it will be 1", cmd_si},
+  { "info", "打印寄存器状态打印监视点信息", cmd_info}
 
   /* TODO: Add more commands */
 

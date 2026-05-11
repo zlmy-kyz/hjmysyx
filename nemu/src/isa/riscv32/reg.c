@@ -24,6 +24,10 @@ const char *regs[] = {
 };
 
 void isa_reg_display() {
+  for(int i=0;i<32;i++){
+    word_t val = isa_reg_str2val(regs[i], NULL);
+    printf("%-4s = 0x%08x\n", regs[i], val);
+  }
 }
 
 word_t isa_reg_str2val(const char *s, bool *success) {
