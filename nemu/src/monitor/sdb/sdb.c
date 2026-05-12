@@ -18,6 +18,7 @@
 #include <readline/readline.h>
 #include <readline/history.h>
 #include "sdb.h"
+#include <memory/paddr.h>
 
 static int is_batch_mode = false;
 
@@ -77,6 +78,28 @@ static int cmd_info(char *args){
   return 0;
 }
 
+static int cmd_x(char *args) {
+  if (args == NULL) {
+    printf("Usage: x N EXPR\n");
+    return 0;
+  }
+
+  int N;
+  paddr_t addr;
+  int ret = sscanf(args, "%d %x", &N, &addr);
+    
+  if (ret < 2) {
+    printf("Usage: x N EXPR\n");
+    return 0;
+  }
+
+  for (int i = 0; i < N; i++) {
+    word_t val = paddr_read(addr + i * 4, 4);
+    printf("0x%08x: 0x%08x\n", addr + i * 4, val);
+  }
+  return 0;
+}
+
 static int cmd_help(char *args);
 
 static struct {
@@ -88,7 +111,8 @@ static struct {
   { "c", "Continue the execution of the program", cmd_c },
   { "q", "Exit NEMU", cmd_q },
   { "si", "let program run N steps then stop,if no N ,it will be 1", cmd_si},
-  { "info", "打印寄存器状态打印监视点信息", cmd_info}
+  { "info", "打印寄存器状态打印监视点信息", cmd_info},
+  { "x" , "求出表达式EXPR的值, 将结果作为起始内存地址, 以十六进制形式输出连续的N个4字节", cmd_x}
 
   /* TODO: Add more commands */
 
