@@ -100,6 +100,9 @@ static int cmd_x(char *args) {
   return 0;
 }
 
+static int cmd_x(char *args){
+
+}
 static int cmd_help(char *args);
 
 static struct {
@@ -112,7 +115,8 @@ static struct {
   { "q", "Exit NEMU", cmd_q },
   { "si", "let program run N steps then stop,if no N ,it will be 1", cmd_si},
   { "info", "打印寄存器状态打印监视点信息", cmd_info},
-  { "x" , "求出表达式EXPR的值, 将结果作为起始内存地址, 以十六进制形式输出连续的N个4字节", cmd_x}
+  { "x" , "求出表达式EXPR的值, 将结果作为起始内存地址, 以十六进制形式输出连续的N个4字节", cmd_x},
+  { "p" , "求出表达式EXPR的值, EXPR支持的运算请见调试中的表达式求值小节", cmd_q}
 
   /* TODO: Add more commands */
 
