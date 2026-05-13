@@ -37,14 +37,15 @@ static struct rule {
    */
 
   {" +", TK_NOTYPE},    // spaces
+  {"[0-9]+", TK_DEC},
   {"\\(", '('},
   {"\\)", ')'},
   {"\\+", '+'},         // plus
   {"\\-", '-'}, 
   {"\\*", '*'},
   {"\\/", '/'},
-  {"[0-9]+", TK_DEC},
-  {"==", TK_EQ}        // equal
+  {"==", TK_EQ},        // equal
+  {"=", '='}
 };
 
 #define NR_REGEX ARRLEN(rules)
@@ -76,7 +77,10 @@ typedef struct token {
 static Token tokens[32] __attribute__((used)) = {};//__attribute__((used))强制保留变量
 static int nr_token __attribute__((used))  = 0;
 
-static bool make_token(char *e) {
+
+
+
+static make_token(char *e) {
   int position = 0;
   int i;
   regmatch_t pmatch;
@@ -103,9 +107,21 @@ static bool make_token(char *e) {
         switch (rules[i].token_type) {
           case TK_NOTYPE:
             break;
-          case '(':
-            tokens[nr_token].type = '(';
-            tokens[nr_token].str[0]
+          case TK_DEC:
+            tokens[nr_token].type = TK_DEC;
+            tokens[nr_token].str[0] = rules[i].token_type;
+            nr_token++;
+            break;
+          case TK_EQ:
+            tokens[nr_token].type = TK_EQ;
+            tokens[nr_token].str[0] = rules[i].token_type;
+            nr_token++;
+            break;
+          case '(': case ')': case '+': case '-': case '*': case '/': case '=':
+            tokens[nr_token].type = rules[i].token_type;
+            tokens[nr_token].str[0] = rules[i].token_type;
+            nr_token++;
+            break;
           default: TODO();
         }
 
@@ -130,7 +146,9 @@ word_t expr(char *e, bool *success) {
   }
 
   /* TODO: Insert codes to evaluate the expression. */
-  TODO();
+  //TODO();
+  
 
   return 0;
 }
+
